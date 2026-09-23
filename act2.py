@@ -7,87 +7,26 @@ Topics: Lists, Tuples, Dictionaries, Sets
 # ==========================================
 # ACTIVITY 1 - BEGINNER LEVEL
 # ==========================================
-"""
-BEGINNER ACTIVITY: Student Grade Management System
-
-Create a program that manages student grades using basic collections.
-You will work with:
-- Lists (store grades)
-- Tuples (store immutable student info)
-- Dictionaries (map students to grades)
-- Sets (find unique grades)
-"""
-
 
 def beginner_activity():
-    """
-    TODO: Complete the following functions
-    """
 
     def create_student_record(name, student_id, grades_list):
-        """
-        Create a student record combining different data types.
-
-        Args:
-            name (str): Student name
-            student_id (int): Student ID
-            grades_list (list): List of grades [90, 85, 88]
-
-        Returns:
-            dict: Student record with student info (tuple) and grades (list)
-
-        Example:
-            create_student_record("Juan", 101, [90, 85, 88])
-            # Should return:
-            # {'student_info': ('Juan', 101), 'grades': [90, 85, 88]}
-        """
-        pass
+        return {
+            "student_info": (name, student_id),
+            "grades": grades_list
+        }
 
     def calculate_average(grades_list):
-        """
-        Calculate the average of a list of grades.
-
-        Args:
-            grades_list (list): List of numeric grades
-
-        Returns:
-            float: Average grade rounded to 2 decimal places
-
-        Example:
-            calculate_average([90, 85, 88])  # Returns: 87.67
-        """
-        pass
+        return round(sum(grades_list) / len(grades_list), 2)
 
     def get_unique_grades(grades_list):
-        """
-        Get unique grades from a list using a set.
-
-        Args:
-            grades_list (list): List of grades (may contain duplicates)
-
-        Returns:
-            set: Set of unique grades
-
-        Example:
-            get_unique_grades([90, 85, 90, 88, 85])  # Returns: {85, 88, 90}
-        """
-        pass
+        return set(grades_list)
 
     def filter_passing_grades(grades_list, passing_score=75):
-        """
-        Filter grades that meet or exceed the passing score.
-
-        Args:
-            grades_list (list): List of grades
-            passing_score (int): Minimum passing score (default: 75)
-
-        Returns:
-            list: List of passing grades in descending order
-
-        Example:
-            filter_passing_grades([90, 65, 88, 72, 95])  # Returns: [95, 90, 88]
-        """
-        pass
+        return sorted(
+            [grade for grade in grades_list if grade >= passing_score],
+            reverse=True
+        )
 
     # Test your functions here
     print("=== BEGINNER ACTIVITY ===")
@@ -107,116 +46,51 @@ def beginner_activity():
 # ==========================================
 # ACTIVITY 2 - INTERMEDIATE LEVEL
 # ==========================================
-"""
-INTERMEDIATE ACTIVITY: Library Inventory Management
-
-Create a system to manage a library's book inventory.
-You will work with:
-- Lists (store book details)
-- Tuples (immutable book info)
-- Dictionaries (map books to inventory counts and details)
-- Sets (track genres, authors)
-"""
-
 
 def intermediate_activity():
-    """
-    TODO: Complete the following functions
-    """
 
     def create_library_inventory():
-        """
-        Create a sample library inventory.
-
-        Returns:
-            dict: Dictionary with book titles as keys and
-                  tuple (author, genre, quantity) as values
-
-        Example return structure:
-            {
-                "1984": ("George Orwell", "Dystopian", 3),
-                "To Kill a Mockingbird": ("Harper Lee", "Fiction", 2)
-            }
-        """
-        pass
+        return {
+            "1984": ("George Orwell", "Dystopian", 3),
+            "To Kill a Mockingbird": ("Harper Lee", "Fiction", 2),
+            "The Great Gatsby": ("F. Scott Fitzgerald", "Classic", 1),
+            "Brave New World": ("Aldous Huxley", "Dystopian", 0),
+            "The Hobbit": ("J.R.R. Tolkien", "Fantasy", 4),
+            "Dune": ("Frank Herbert", "Science Fiction", 2)
+        }
 
     def get_books_by_genre(inventory_dict, target_genre):
-        """
-        Get all books of a specific genre.
-
-        Args:
-            inventory_dict (dict): Library inventory
-            target_genre (str): Target genre to filter
-
-        Returns:
-            list: List of tuples (book_title, author) for books in that genre
-
-        Example:
-            get_books_by_genre(inventory, "Fiction")
-            # Returns: [("1984", "George Orwell"), ...]
-        """
-        pass
+        return [
+            (title, details[0])
+            for title, details in inventory_dict.items()
+            if details[1] == target_genre
+        ]
 
     def get_all_genres(inventory_dict):
-        """
-        Get all unique genres in the library.
-
-        Args:
-            inventory_dict (dict): Library inventory
-
-        Returns:
-            set: Set of all unique genres
-
-        Example:
-            get_all_genres(inventory)
-            # Returns: {"Dystopian", "Fiction", "Science Fiction"}
-        """
-        pass
+        return {
+            details[1]
+            for details in inventory_dict.values()
+        }
 
     def get_low_stock_books(inventory_dict, min_quantity=2):
-        """
-        Find books with low stock (below minimum quantity).
-
-        Args:
-            inventory_dict (dict): Library inventory
-            min_quantity (int): Minimum acceptable quantity (default: 2)
-
-        Returns:
-            dict: Dictionary of low stock books with their details
-
-        Example:
-            {
-                "The Great Gatsby": ("F. Scott Fitzgerald", "Classic", 1),
-                "Brave New World": ("Aldous Huxley", "Dystopian", 0)
-            }
-        """
-        pass
+        return {
+            title: details
+            for title, details in inventory_dict.items()
+            if details[2] < min_quantity
+        }
 
     def update_inventory(inventory_dict, book_title, new_quantity):
-        """
-        Update the quantity of a specific book.
+        if book_title in inventory_dict:
+            author, genre, quantity = inventory_dict[book_title]
+            inventory_dict[book_title] = (author, genre, new_quantity)
 
-        Args:
-            inventory_dict (dict): Library inventory
-            book_title (str): Title of the book
-            new_quantity (int): New quantity to set
-
-        Returns:
-            dict: Updated inventory dictionary
-        """
-        pass
+        return inventory_dict
 
     def get_author_list(inventory_dict):
-        """
-        Get all unique authors in the library.
-
-        Args:
-            inventory_dict (dict): Library inventory
-
-        Returns:
-            set: Set of all unique authors
-        """
-        pass
+        return {
+            details[0]
+            for details in inventory_dict.values()
+        }
 
     # Test your functions here
     print("\n=== INTERMEDIATE ACTIVITY ===")
@@ -239,156 +113,149 @@ def intermediate_activity():
 # ==========================================
 # ACTIVITY 3 - ADVANCED LEVEL
 # ==========================================
-"""
-ADVANCED ACTIVITY: Student Course Enrollment & Analytics
-
-Create a comprehensive system for managing student course enrollments with analytics.
-You will work with:
-- Lists (store course lists, enrollment records)
-- Tuples (immutable course info, grades)
-- Dictionaries (complex nested structures for courses, students, grades)
-- Sets (find common courses, unique prerequisites)
-"""
-
 
 def advanced_activity():
-    """
-    TODO: Complete the following functions
-    """
 
     def create_student_enrollment_system():
-        """
-        Create a complex student enrollment system.
-
-        Returns:
-            dict: Nested dictionary structure:
-            {
-                "students": {
-                    "S001": {
-                        "name": "John",
-                        "courses": ["CS101", "CS102"],
-                        "grades": {"CS101": 90, "CS102": 85}
+        return {
+            "students": {
+                "S001": {
+                    "name": "John",
+                    "courses": ["CS101", "CS102"],
+                    "grades": {
+                        "CS101": 90,
+                        "CS102": 85
                     }
                 },
-                "courses": {
-                    "CS101": ("Intro to Python", ["Programming"], 30),
-                    "CS102": ("Data Structures", ["Programming", "CS101"], 25)
+                "S002": {
+                    "name": "Jane",
+                    "courses": ["CS101", "CS102", "CS103"],
+                    "grades": {
+                        "CS101": 92,
+                        "CS102": 88,
+                        "CS103": 95
+                    }
+                },
+                "S003": {
+                    "name": "Mark",
+                    "courses": ["CS101", "CS103"],
+                    "grades": {
+                        "CS101": 78,
+                        "CS103": 82
+                    }
+                },
+                "S004": {
+                    "name": "Anna",
+                    "courses": ["CS102", "CS103"],
+                    "grades": {
+                        "CS102": 91,
+                        "CS103": 89
+                    }
                 }
-            }
+            },
 
-            Note: Course value is tuple: (course_name, prerequisites, capacity)
-        """
-        pass
+            "courses": {
+                "CS101": (
+                    "Intro to Python",
+                    ["Programming"],
+                    30
+                ),
+                "CS102": (
+                    "Data Structures",
+                    ["CS101"],
+                    25
+                ),
+                "CS103": (
+                    "Database Systems",
+                    ["CS101"],
+                    25
+                )
+            }
+        }
 
     def get_students_in_course(system_dict, course_code):
-        """
-        Get all students enrolled in a specific course.
-
-        Args:
-            system_dict (dict): The enrollment system
-            course_code (str): Course code (e.g., "CS101")
-
-        Returns:
-            set: Set of student IDs enrolled in the course
-
-        Example:
-            get_students_in_course(system, "CS101")
-            # Returns: {"S001", "S002", "S003"}
-        """
-        pass
+        return {
+            student_id
+            for student_id, student in system_dict["students"].items()
+            if course_code in student["courses"]
+        }
 
     def find_student_overlap(system_dict, student_id1, student_id2):
-        """
-        Find courses that two students have in common.
+        courses1 = set(
+            system_dict["students"][student_id1]["courses"]
+        )
 
-        Args:
-            system_dict (dict): The enrollment system
-            student_id1 (str): First student ID
-            student_id2 (str): Second student ID
+        courses2 = set(
+            system_dict["students"][student_id2]["courses"]
+        )
 
-        Returns:
-            set: Set of common course codes
-
-        Example:
-            find_student_overlap(system, "S001", "S002")
-            # Returns: {"CS101", "CS102"}
-        """
-        pass
+        return courses1 & courses2
 
     def get_student_gpa(system_dict, student_id):
-        """
-        Calculate GPA for a student (assuming 4.0 scale mapping: 90+=4.0, 80+=3.0, etc).
+        grades = system_dict["students"][student_id]["grades"]
 
-        Args:
-            system_dict (dict): The enrollment system
-            student_id (str): Student ID
+        total_points = 0
 
-        Returns:
-            float: Student GPA rounded to 2 decimal places
-        """
-        pass
+        for grade in grades.values():
+            if grade >= 90:
+                points = 4.0
+            elif grade >= 80:
+                points = 3.0
+            elif grade >= 70:
+                points = 2.0
+            elif grade >= 60:
+                points = 1.0
+            else:
+                points = 0.0
+
+            total_points += points
+
+        return round(total_points / len(grades), 2)
 
     def get_course_prerequisites(system_dict, course_code):
-        """
-        Get all prerequisites for a course.
-
-        Args:
-            system_dict (dict): The enrollment system
-            course_code (str): Course code
-
-        Returns:
-            list: List of prerequisite course codes
-
-        Example:
-            get_course_prerequisites(system, "CS102")
-            # Returns: ["CS101"]
-        """
-        pass
+        return system_dict["courses"][course_code][1]
 
     def get_students_for_course(system_dict, course_code):
-        """
-        Get detailed info about students in a course (name, grade).
+        students = []
 
-        Args:
-            system_dict (dict): The enrollment system
-            course_code (str): Course code
+        for student_id, student in system_dict["students"].items():
+            if course_code in student["courses"]:
+                name = student["name"]
+                grade = student["grades"].get(course_code)
+                students.append((name, grade))
 
-        Returns:
-            list: List of tuples (student_name, grade)
-
-        Example:
-            get_students_for_course(system, "CS101")
-            # Returns: [("John", 90), ("Jane", 92)]
-        """
-        pass
+        return students
 
     def get_courses_by_average_grade(system_dict):
-        """
-        Get all courses sorted by average grade (highest first).
+        course_averages = []
 
-        Args:
-            system_dict (dict): The enrollment system
+        for course_code in system_dict["courses"]:
+            grades = []
 
-        Returns:
-            list: List of tuples (course_code, average_grade)
+            for student in system_dict["students"].values():
+                if course_code in student["courses"]:
+                    grades.append(student["grades"][course_code])
 
-        Example:
-            [("CS102", 88.5), ("CS101", 86.0)]
-        """
-        pass
+            if grades:
+                average = round(sum(grades) / len(grades), 2)
+                course_averages.append((course_code, average))
+
+        return sorted(
+            course_averages,
+            key=lambda item: item[1],
+            reverse=True
+        )
 
     def find_high_performers(system_dict, min_gpa=3.5):
-        """
-        Find students with GPA above a threshold.
+        high_performers = {}
 
-        Args:
-            system_dict (dict): The enrollment system
-            min_gpa (float): Minimum GPA threshold
+        for student_id in system_dict["students"]:
+            gpa = get_student_gpa(system_dict, student_id)
 
-        Returns:
-            dict: Dictionary of {student_id: gpa} for qualifying students
-        """
-        pass
+            if gpa >= min_gpa:
+                high_performers[student_id] = gpa
+
+        return high_performers
 
     # Test your functions here
     print("\n=== ADVANCED ACTIVITY ===")
